@@ -43,13 +43,9 @@ python -m streamlit run app.py
 
 Open the URL shown by Streamlit, normally `http://localhost:8501`.
 
-## Deploy with Streamlit Community Cloud
+## Live Streamlit App
+https://ibmhranalytics-cchappgmjcyu5xnimxyvs4p.streamlit.app/
 
-1. Open [share.streamlit.io](https://share.streamlit.io/) and sign in with GitHub.
-2. Select `rsdina/IBM_HR_Analytics`.
-3. Select the `main` branch.
-4. Set the main file to `app.py`.
-5. Deploy.
 
 The app is self-contained: it loads data and model artifacts with paths relative to `app.py`, so the `data/` and `models/` folders must remain in the repository.
 
