@@ -225,20 +225,25 @@ def render_model(performance: pd.DataFrame, metadata: dict) -> None:
     st.markdown('<div class="section-label"><span>03 / model lab</span><b>validation snapshot</b></div>', unsafe_allow_html=True)
     st.markdown(f'<span class="model-badge">BEST MODEL / {metadata["best_model"].upper()}</span>', unsafe_allow_html=True)
     st.caption(f"Trained on {metadata['training_samples']:,} records and evaluated on {metadata['test_samples']:,} held-out records. Scores are from the exported project artifacts.")
-    left, right = st.columns([1.2, .8], gap="large")
-    with left:
-        metric_cols = ["Accuracy", "Precision", "Recall", "F1 Score", "AUC-ROC"]
-        long = performance.melt(id_vars=["Model"], value_vars=metric_cols, var_name="Metric", value_name="Score")
-        chart = px.bar(long, x="Metric", y="Score", color="Model", barmode="group", color_discrete_sequence=[PINK, CYAN, ORANGE, LIME])
-        chart.update_traces(hovertemplate="%{fullData.name}<br>%{x}: %{y:.3f}<extra></extra>")
-        chart.update_yaxes(range=[0, 1])
-        st.plotly_chart(chart_layout(chart, 400), use_container_width=True, config={"displayModeBar": False})
-    with right:
-        st.markdown('<div class="panel-head">Read the trade-off</div><div class="panel-sub">The selected model is accurate, but recall remains the pressure point.</div>', unsafe_allow_html=True)
-        st.metric("AUC-ROC", f"{metadata['auc_roc']:.3f}")
-        st.metric("Precision", f"{metadata['precision']:.3f}")
-        st.metric("Recall", f"{metadata['recall']:.3f}")
-        st.markdown('<div class="small-note">Use the simulator as a prioritization signal, not a standalone employment decision. Investigate the underlying experience before taking action.</div>', unsafe_allow_html=True)
+    metric_cols = ["Accuracy", "Precision", "Recall", "F1 Score", "AUC-ROC"]
+    model_name_column = "Unnamed: 0" if "Unnamed: 0" in performance.columns else "Model"
+    model_view = performance.assign(Model_Name=performance[model_name_column].astype(str))
+    long = model_view.melt(id_vars=["Model_Name"], value_vars=metric_cols, var_name="Metric", value_name="Score")
+    chart = px.bar(long, x="Metric", y="Score", color="Model_Name", barmode="group", color_discrete_sequence=[PINK, CYAN, ORANGE, LIME])
+    chart.update_traces(hovertemplate="%{fullData.name}<br>%{x}: %{y:.3f}<extra></extra>")
+    chart.update_yaxes(range=[0, 1])
+    chart.update_layout(
+        legend={"orientation": "h", "y": -0.22, "x": 0, "font": {"size": 11, "color": MUTED}},
+        xaxis={"tickangle": 0},
+        margin={"l": 8, "r": 8, "t": 16, "b": 88},
+    )
+    st.plotly_chart(chart_layout(chart, 440), use_container_width=True, config={"displayModeBar": False})
+    st.markdown('<div class="panel-head">Read the trade-off</div><div class="panel-sub">The selected model is accurate, but recall remains the pressure point.</div>', unsafe_allow_html=True)
+    score_cols = st.columns(3)
+    score_cols[0].metric("AUC-ROC", f"{metadata['auc_roc']:.3f}")
+    score_cols[1].metric("Precision", f"{metadata['precision']:.3f}")
+    score_cols[2].metric("Recall", f"{metadata['recall']:.3f}")
+    st.markdown('<div class="small-note">Use the simulator as a prioritization signal, not a standalone employment decision. Investigate the underlying experience before taking action.</div>', unsafe_allow_html=True)
 
 
 def render_explorer(data: pd.DataFrame) -> None:
