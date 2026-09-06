@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HR Analytics Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
+        .metric-card { background: #ecf0f1; padding: 20px; border-radius: 8px; text-align: center; }
+        .metric-value { font-size: 28px; font-weight: bold; color: #2c3e50; }
+        .metric-label { color: #7f8c8d; font-size: 14px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #3498db; color: white; }
+        tr:hover { background-color: #f5f5f5; }
+        .insight { background: #e8f4fd; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #3498db; }
+        .recommendation { background: #fef9e7; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #f39c12; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1> HR Analytics Project Results</h1>
+    <p><strong>Generated:</strong> 2026-09-06 13:29:01</p>
+
+    <h2> Key Metrics</h2>
+    <div class="metric-grid">
+        <div class="metric-card"><div class="metric-value">1,470</div><div class="metric-label">Total Employees</div></div>
+        <div class="metric-card"><div class="metric-value">16.1%</div><div class="metric-label">Attrition Rate</div></div>
+        <div class="metric-card"><div class="metric-value">237</div><div class="metric-label">Employees Left</div></div>
+        <div class="metric-card"><div class="metric-value">1,233</div><div class="metric-label">Employees Stayed</div></div>
+    </div>
+
+    <h2> Compensation Analysis</h2>
+    <table>
+        <tr><th>Group</th><th>Average Monthly Income</th></tr>
+        <tr><td>Employees Who Left</td><td>$4,787.09</td></tr>
+        <tr><td>Employees Who Stayed</td><td>$6,832.74</td></tr>
+        <tr><td><strong>Income Gap</strong></td><td><strong>$2,045.65</strong></td></tr>
+    </table>
+
+    <h2> Department Attrition</h2>
+    <table>
+        <tr><th>Department</th><th>Attrition Rate</th></tr>
+<tr><td>Sales</td><td>20.63%</td></tr><tr><td>Human Resources</td><td>19.05%</td></tr><tr><td>Research & Development</td><td>13.84%</td></tr>
+    </table>
+
+    <h2> Model Performance</h2>
+    <p><strong>Best Model:</strong> Logistic Regression</p>
+    <table>
+        <tr><th>Metric</th><th>Score</th></tr>
+        <tr><td>Accuracy</td><td>0.8741</td></tr>
+        <tr><td>Precision</td><td>0.6923</td></tr>
+        <tr><td>Recall</td><td>0.3830</td></tr>
+        <tr><td>F1 Score</td><td>0.4932</td></tr>
+        <tr><td>AUC-ROC</td><td>0.8057</td></tr>
+    </table>
+
+    <h2> Key Insights</h2>
+    <div class="insight"> <strong>Overtime</strong> is the strongest predictor - 30.53% of overtime employees leave</div>
+    <div class="insight"> <strong>Income disparity</strong> - Leavers earn $2,045.65 less on average</div>
+    <div class="insight"> <strong>Sales department</strong> has the highest attrition rate at 20.63%</div>
+    <div class="insight"> <strong>Job satisfaction</strong> negatively correlates with attrition</div>
+    <div class="insight"> <strong>Single employees</strong> show 25.53% attrition rate</div>
+
+    <h2> Recommendations</h2>
+<div class="recommendation">1.  Focus on improving job satisfaction, especially in departments with high attrition</div>
+<div class="recommendation">2.  Review compensation packages, particularly for roles with high attrition rates</div>
+<div class="recommendation">3.  Address work-life balance issues, especially for employees working overtime</div>
+<div class="recommendation">4.  Implement career development programs to improve employee engagement</div>
+<div class="recommendation">5.  Enhance employee well-being programs to reduce turnover</div>
+
+</div>
+</body>
+</html>
