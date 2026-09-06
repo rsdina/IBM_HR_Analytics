@@ -278,11 +278,17 @@ def render_simulator(data: pd.DataFrame, features: list[str]) -> None:
     with right:
         if run_prediction or "prediction" not in st.session_state:
             model, scaler = load_model()
-            row = data.drop(columns=["Attrition", "Attrition_Binary", "EmployeeCount", "EmployeeNumber", "Over18", "StandardHours"]).median(numeric_only=False).to_frame().T
-            for column in row.columns:
-                if data[column].dtype == "object":
-                    row.at[0, column] = data[column].mode().iloc[0]
-            row.update(pd.DataFrame([{ "Age": age, "BusinessTravel": travel, "Department": department, "DistanceFromHome": distance, "EnvironmentSatisfaction": environment, "JobLevel": level, "JobRole": role, "JobSatisfaction": job_satisfaction, "MaritalStatus": marital, "MonthlyIncome": income, "OverTime": overtime, "YearsAtCompany": years_company }]))
+            model_frame = data.drop(columns=["Attrition", "Attrition_Binary", "EmployeeCount", "EmployeeNumber", "Over18", "StandardHours"])
+            defaults = {}
+            for column in model_frame.columns:
+                if pd.api.types.is_numeric_dtype(model_frame[column]):
+                    defaults[column] = model_frame[column].median()
+                else:
+                    defaults[column] = model_frame[column].mode().iloc[0]
+            row = pd.DataFrame([defaults])
+            scenario = {"Age": age, "BusinessTravel": travel, "Department": department, "DistanceFromHome": distance, "EnvironmentSatisfaction": environment, "JobLevel": level, "JobRole": role, "JobSatisfaction": job_satisfaction, "MaritalStatus": marital, "MonthlyIncome": income, "OverTime": overtime, "YearsAtCompany": years_company}
+            for column, value in scenario.items():
+                row.at[0, column] = value
             categorical = [column for column in features if data[column].dtype == "object"]
             for column in categorical:
                 labels = {value: index for index, value in enumerate(sorted(data[column].dropna().unique()))}
