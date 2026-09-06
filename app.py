@@ -289,7 +289,7 @@ def render_simulator(data: pd.DataFrame, features: list[str]) -> None:
             scenario = {"Age": age, "BusinessTravel": travel, "Department": department, "DistanceFromHome": distance, "EnvironmentSatisfaction": environment, "JobLevel": level, "JobRole": role, "JobSatisfaction": job_satisfaction, "MaritalStatus": marital, "MonthlyIncome": income, "OverTime": overtime, "YearsAtCompany": years_company}
             for column, value in scenario.items():
                 row.at[0, column] = value
-            categorical = [column for column in features if data[column].dtype == "object"]
+            categorical = [column for column in features if not pd.api.types.is_numeric_dtype(data[column])]
             for column in categorical:
                 labels = {value: index for index, value in enumerate(sorted(data[column].dropna().unique()))}
                 row[column] = row[column].map(labels)
